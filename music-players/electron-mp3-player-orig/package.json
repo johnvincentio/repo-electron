@@ -1,0 +1,44 @@
+{
+  "name": "electron-audio-player",
+  "version": "1.0.0",
+  "description": "Audio Player using ElectronJS and ReactJS",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:client": "del production && webpack",
+    "dev:server": "webpack-dev-server --config webpack.dev.config.js"
+  },
+  "keywords": [
+    "Audio",
+    "Player",
+    "Electron",
+    "React"
+  ],
+  "author": "Akmal Maulana Azzam",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "electron": "^1.8.4",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.1.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "prop-types": "^15.6.1",
+    "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "dependencies": {
+    "btoa": "^1.2.1",
+    "font-awesome": "^4.7.0",
+    "jsmediatags": "^3.8.1",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
+  }
+}

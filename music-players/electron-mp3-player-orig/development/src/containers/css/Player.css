@@ -1,0 +1,217 @@
+.Player span {
+    white-space: pre; 
+}
+
+.Player .controller-container {
+    height: 70%;
+    background-color: #2196F3;
+    position: relative;
+}
+
+.Player #duration {
+    color: white;
+    position: absolute;
+    font-size: 15px;
+    margin-top: -9px;
+    top: 50%;
+    right: 20px;
+}
+
+.Player #play-pause-button, #stop-button, #volume-button, #prev-button, #next-button {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    margin-top: -10px;
+}
+
+#stop-button {
+    left: 42%;
+}
+
+#volume-button {
+    left: 60%;
+}
+
+#next-button {
+    left: 45%;
+    font-size: 16px;
+    margin-top: -8px;
+}
+
+#prev-button {
+    left: 37%;
+    font-size: 16px;
+    margin-top: -8px;
+}
+
+.Player #play-pause-button:hover, #stop-button:hover, #volume-button:hover, #prev-button:hover, #next-button:hover {
+    color: #0D47A1;
+    cursor: pointer;
+}
+
+.Player .music-border {
+    border-right: 1px solid white;
+    width: 80px;
+    height: 100%;
+    position: relative;
+}
+
+.Player #music-button {
+    color: white;
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+    margin-bottom: -14px;
+    margin-right: -12px;
+    font-size: 25px;
+}
+
+.Player .music-detail {
+    color: white;
+    height: 100%;
+    width: 40%;
+    max-width: 30%;
+    position: relative;
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.Player .music-detail .detail-container {
+    overflow: hidden;
+    max-height: 30px;
+}
+
+.Player .music-detail span {
+    position: absolute;
+    text-align: left;
+}
+
+.Player .music-detail #real-title, #album, #artist {
+    left: 90px;
+}
+
+.Player .music-detail #real-title {
+    top: 7px;
+    max-height: 20px;
+    overflow: hidden;
+}
+
+.Player .music-detail #artist {
+    top: 27px;
+    font-size: 14px;
+    max-height: 16px;
+    overflow: hidden;
+}
+
+.Player .music-detail #album {
+    top: 47px;
+    max-height: 16px;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.Player .slider-control {
+    width: 100%;
+    height: 30%;
+    position: relative;
+    background-color: #2196F3;
+    animation: positionChange 0.5s ease-in-out;
+}
+
+@keyframes positionChange {
+    0% {top: 10px; opacity: 0;}
+    100% {top: 0px; opacity: 1;}
+}
+
+.Player .slider-changer {
+    width: 100%;
+    height: 30%;
+    background-color: #2196F3;
+    /* z-index: -9999; */
+}
+
+.Player .slider-control input {
+    overflow: hidden;
+    width: 95%;
+    height: 4px;
+    position: absolute;
+    top: 10px;
+    left: 2%;
+    -webkit-appearance: none;
+    outline: none;
+    margin-top: 1px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+.Player .slider-control input:hover {
+    height: 5px;
+    margin-top: 0px;
+    cursor: pointer;
+}
+
+.Player .slider-control input::-webkit-slider-thumb {
+    width: 18px;
+    box-shadow: -2500px 0px 0px 2500px #0D47A1;
+    background-color: #0D47A1;
+    -webkit-appearance: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.Player .slider-control input::-webkit-slider-thumb:hover {
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 1000px) {
+    #stop-button {
+        left: 48%;
+    }
+
+    .Player #play-pause-button {
+        left: 42%;
+    }
+
+    #prev-button {
+        left: 35%;
+    }
+    
+    #next-button {
+        left: 56%;
+    }
+
+    #volume-button {
+        left: 72%;
+    }
+
+    .Player .music-border {
+        width: 60px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #stop-button {
+        left: 38%;
+    }
+
+    .Player #play-pause-button {
+        left: 32%;
+    }
+
+    #prev-button {
+        left: 25%;
+    }
+    
+    #next-button {
+        left: 46%;
+    }
+
+    #volume-button {
+        left: 62%;
+    }
+
+    .Player .music-detail span {
+        display: none;
+    }   
+}

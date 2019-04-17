@@ -1,0 +1,66 @@
+.App {
+    height: 100vh;
+    width: 100vw;
+}
+
+.Sidebar {
+    width: 30vw;
+    position: relative;
+    height: 85vh;
+    float: left;
+    animation: slide 0.4s;
+    background-color: white;
+}
+
+.thumbnail-container {
+    position: relative;
+    height: 85vh;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.Player {
+    height: 15vh;
+}
+
+.Sidebar .header #close-sidebar, .thumbnail-container #show-sidebar {
+    display: none;       
+}
+
+@keyframes slide{
+    0% {opacity: 0; left: -100%;}
+    100% {opacity: 1; left: 0px;}
+}
+
+@keyframes slideOut{
+    0% {opacity: 1; left: 0px;}
+    100% {opacity: 0; left: -100%;}
+}
+
+@media only screen and (max-width: 800px) {
+    .Sidebar {
+        width: 100vw;
+        position: absolute;
+        opacity: 0;
+        animation: none;
+        z-index: 3;
+        left: -100%;
+    }
+
+    #displayed {
+       display: block;
+       opacity: 1;
+       animation: slide 0.4s;
+       left: 0px;
+    }
+
+    #hidden{
+        display: block;
+        animation: slideOut 0.4s;
+        opacity: 0;
+    }
+
+    .Sidebar .header #close-sidebar, .thumbnail-container #show-sidebar {
+        display: block;       
+    }
+}

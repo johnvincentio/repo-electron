@@ -1,0 +1,38 @@
+.music-item {
+    padding: 10px;
+    height: 50px;
+    position: relative;
+    border-bottom: 1px solid #EEEEEE;
+    overflow: hidden;
+}
+
+.music-item:hover {
+    background-color: #0D47A1;
+    cursor: pointer;
+    color: white;
+    border-bottom: 1px solid #0D47A1;
+}
+
+span {
+    white-space: pre;
+}
+
+.music-item #title {
+    font-size: 18px;
+    font-weight: 500;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+}
+
+.music-item #artist-album {
+    position: absolute;
+    top: 35px;
+    left: 10px;
+}
+
+#played {
+    background-color: #0D47A1;
+    color: white;
+    border-bottom: 1px solid #0D47A1;
+}
