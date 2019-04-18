@@ -1,45 +1,90 @@
-# electron-quick-start
 
-**Clone and run for a quick way to see Electron in action.**
+[Electron](https://electronjs.org/)
 
-This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start) within the Electron documentation.
+[Electron Docs](https://electronjs.org/docs)
 
-**Use this app along with the [Electron API Demos](https://electronjs.org/#get-started) app for API code examples to help you get started.**
+[Udemy Course](https://www.udemy.com/master-electron)
 
-A basic Electron application needs just these files:
+[Electron Reload](https://www.npmjs.com/package/electron-reload)
 
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
+Added to `main.js`
 
-You can learn more about each of these components within the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start).
-
-## To Use
-
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies
-npm install
-# Run the app
-npm start
+```
+require('electron-reload')(__dirname);
 ```
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+to allow for code changes to reload the app.
 
-## Resources for Learning Electron
+[bcrypt](https://www.npmjs.com/package/bcrypt)
 
-- [electronjs.org/docs](https://electronjs.org/docs) - all of Electron's documentation
-- [electronjs.org/community#boilerplates](https://electronjs.org/community#boilerplates) - sample starter apps created by the community
-- [electron/electron-quick-start](https://github.com/electron/electron-quick-start) - a very basic starter Electron app
-- [electron/simple-samples](https://github.com/electron/simple-samples) - small applications with ideas for taking them further
-- [electron/electron-api-demos](https://github.com/electron/electron-api-demos) - an Electron app that teaches you how to use Electron
-- [hokein/electron-sample-apps](https://github.com/hokein/electron-sample-apps) - small demo apps for the various Electron APIs
+Took code from here and added to `main.js`
 
-## License
+```
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
 
-[CC0 1.0 (Public Domain)](LICENSE.md)
+bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+	// Store hash in your password DB.
+	console.log('hashed password: ', hash)
+});
+```
+
+[Using Native Node Modules](https://electronjs.org/docs/tutorial/using-native-node-modules)
+
+This allows the avoidance of the version problem.
+
+jv-build
+
+```
+# Electron's version.
+export npm_config_target=4.1.4
+
+# The architecture of Electron, can be ia32 or x64.
+export npm_config_arch=x64
+export npm_config_target_arch=x64
+
+# Download headers for Electron.
+export npm_config_disturl=https://atom.io/download/electron
+
+# Tell node-pre-gyp that we are building for Electron.
+export npm_config_runtime=electron
+
+# Tell node-pre-gyp to build module from source code.
+export npm_config_build_from_source=true
+
+npm install $1
+```
+
+where `export npm_config_target=4.1.4` is the version of electron
+
+```
+"version": "./node_modules/.bin/electron -v"
+```
+
+which I added to package.json
+
+## Chrome Devtools
+
+* Start the app `npm start`
+* View, Toggle Developer Tools
+
+## Devtron
+
+[Devtron](https://electronjs.org/devtron)
+
+```
+npm install --save-dev devtron
+```
+
+* Start the app `npm start`
+* View, Toggle Developer Tools
+From the console
+
+```
+require('devtron').install()
+```
+
+which adds new tab `Devtron`
+

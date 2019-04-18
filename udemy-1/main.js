@@ -1,7 +1,18 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
 
-require('electron-reload')(__dirname)
+require('electron-reload')(__dirname);
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
+
+bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+	// Store hash in your password DB.
+	console.log('hashed password: ', hash)
+});
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
