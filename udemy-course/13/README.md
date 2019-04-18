@@ -187,3 +187,34 @@ mainWindow.once('ready-to-show', () => {
 	});
 ```
 
+## Frameless Window
+
+```
+  mainWindow = new BrowserWindow({width: 1200, height: 800, frame: false});
+
+	mainWindow.loadURL(`file://${__dirname}/index.html`);
+
+  mainWindow.on('closed', function () {
+		console.log('on mainWindow closed');
+    mainWindow = null;
+	});
+```
+
+```
+	<style>
+		* {
+			cursor: default;
+		}
+		body {
+			height: 100%;
+			background-color: red;
+			-webkit-user-select: none;
+			-webkit-app-region: drag;
+		}
+		select {
+			-webkit-app-region: no-drag;
+		}
+	</style>
+```
+
+

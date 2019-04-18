@@ -4,6 +4,8 @@
 
 const {app, BrowserWindow} = require('electron')
 
+const windowStateKeeper = require('electron-window-state');
+
 require('electron-reload')(__dirname);
 
 const bcrypt = require('bcrypt');
@@ -16,13 +18,27 @@ bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
 	console.log('hashed password: ', hash)
 });
 
-let mainWindow
+let mainWindow;
 
 app.on('ready', function (e) {
 
-  mainWindow = new BrowserWindow({width: 1200, height: 800, frame: false});
+	let winState = windowStateKeeper({
+		defaultWidth: 1200,
+		defaultHeight: 600
+	});
+
+	mainWindow = new BrowserWindow({
+		width: winState.width, height: winState.height,
+		x: winState.x, y: winState.y,
+		minWidth: 400, minHeight: 200
+	});
+	winState.manage(mainWindow);
 
 	mainWindow.loadURL(`file://${__dirname}/index.html`);
+
+	mainWindow.on('focus', () => {
+		console.log('Main window focused')
+	});
 
   mainWindow.on('closed', function () {
 		console.log('on mainWindow closed');

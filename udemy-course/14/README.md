@@ -167,6 +167,11 @@ mainWindow.once('ready-to-show', () => {
 // app.on('browser-window-focus', function(e) {
 // 	console.log('browser-window-focus; Window in focus');
 // });
+
+app.on('browser-window-focus', () => {
+	console.log('browser-window-focus')
+});
+
 ```
 
 ## Parent / Child Windows
@@ -186,4 +191,57 @@ mainWindow.once('ready-to-show', () => {
 		childWindow.show();
 	});
 ```
+
+## Frameless Window
+
+```
+  mainWindow = new BrowserWindow({width: 1200, height: 800, frame: false});
+
+	mainWindow.loadURL(`file://${__dirname}/index.html`);
+
+  mainWindow.on('closed', function () {
+		console.log('on mainWindow closed');
+    mainWindow = null;
+	});
+```
+
+```
+	<style>
+		* {
+			cursor: default;
+		}
+		body {
+			height: 100%;
+			background-color: red;
+			-webkit-user-select: none;
+			-webkit-app-region: drag;
+		}
+		select {
+			-webkit-app-region: no-drag;
+		}
+	</style>
+```
+
+## Save Window State
+
+```
+npm i electron-window-state --save
+```
+
+```
+app.on('ready', function (e) {
+
+	let winState = windowStateKeeper({
+		defaultWidth: 1200,
+		defaultHeight: 600
+	});
+
+	mainWindow = new BrowserWindow({
+		width: winState.width, height: winState.height,
+		x: winState.x, y: winState.y,
+		minWidth: 400, minHeight: 200
+	});
+	winState.manage(mainWindow);
+```
+
 

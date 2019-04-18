@@ -16,17 +16,40 @@ bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
 	console.log('hashed password: ', hash)
 });
 
-let mainWindow
+let mainWindow;
+let secWindow;
+
+app.on('browser-window-focus', () => {
+	console.log('browser-window-focus')
+});
 
 app.on('ready', function (e) {
 
-  mainWindow = new BrowserWindow({width: 1200, height: 800, frame: false});
+	mainWindow = new BrowserWindow({width: 1200, height: 800, minWidth: 400, minHeight: 200});
+	secWindow = new BrowserWindow({width: 800, height: 500, minWidth: 400, minHeight: 200});
 
 	mainWindow.loadURL(`file://${__dirname}/index.html`);
+	secWindow.loadURL(`file://${__dirname}/index.html`);
+
+	mainWindow.on('focus', () => {
+		console.log('Main window focused')
+	});
+	secWindow.on('focus', () => {
+		console.log('secWindow window focused')
+	});
+
+	secWindow.on('blur', () => {
+		console.log('secWindow window blur');
+		mainWindow.close();
+	});
 
   mainWindow.on('closed', function () {
 		console.log('on mainWindow closed');
     mainWindow = null;
+	});
+	secWindow.on('closed', function () {
+		console.log('on secWindow closed');
+    secWindow = null;
 	});
 });
 
