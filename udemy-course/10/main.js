@@ -50,11 +50,14 @@ app.on('ready', function (e) {
 
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
+		height: 600,
+		backgroundColor: '#ff0000'
+		// show: false
+	});
+	
+	// mainWindow.once('ready-to-show', () => {
+	// 	mainWindow.show();
+	// });
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')

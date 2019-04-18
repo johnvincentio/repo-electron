@@ -101,3 +101,73 @@ require('devtron').install()
 
 which adds new tab `Devtron`
 
+
+## Open the DevTools
+
+```
+mainWindow.webContents.openDevTools();
+```
+
+## Do not show window until ready to show
+
+```
+mainWindow = new BrowserWindow({
+	width: 800,
+	height: 600,
+	backgroundColor: '#ff0000'
+	show: false
+});
+
+mainWindow.once('ready-to-show', () => {
+	mainWindow.show();
+});
+```
+
+
+
+```
+// app.setBadgeCount(22);
+
+// console.log(app.getPath('desktop'));
+// console.log(app.getPath('music'));
+// console.log(app.getPath('temp'));
+// console.log(app.getPath('userData'));
+
+// console.log('Is App ready? ', app.isReady());
+// setTimeout(function() {
+// 	console.log('Is App ready? ', app.isReady());
+// }, 3000)
+
+// app.on('before-quit', function(e) {
+// 	console.log('before-quit; App is about to quit');
+// 	e.preventDefault();
+// });
+
+// app.on('browser-window-blur', function(e) {
+// 	console.log('browser-window-blur; Window out of focus');
+// 	setTimeout(app.quit, 3000);
+// });
+
+// app.on('browser-window-focus', function(e) {
+// 	console.log('browser-window-focus; Window in focus');
+// });
+```
+
+## Parent / Child Windows
+
+```
+  mainWindow = new BrowserWindow({width: 1200, height: 800});
+	childWindow = new BrowserWindow({width: 600, height: 400, parent: mainWindow});
+```
+
+## Show Child when Ready
+
+```
+	mainWindow.loadFile('index.html');
+	childWindow.loadURL(`https://johnvincent.io`);
+
+	childWindow.once('ready-to-show', () => {
+		childWindow.show();
+	});
+```
+
