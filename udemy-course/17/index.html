@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+	</head>
+	<style>
+		* {
+			cursor: default;
+		}
+		body {
+			height: 100%;
+			background-color: red;
+			-webkit-user-select: none;
+			font: caption;
+		}
+	</style>
+  <body>
+		<h1>Hello World from index.html</h1>
+		<h3><a href="https://www.google.com" target="_blank">Google</a></h3>
+		<h3><a href="about.html">About</a></h3>
+
+		<p>Any text</p>
+		<video width="600" controls>
+			<source src="../mov_bbb.mp4" type="video/mp4">
+		</video>
+
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+  </body>
+</html>
