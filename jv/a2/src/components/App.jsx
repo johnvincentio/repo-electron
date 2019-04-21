@@ -1,73 +1,182 @@
+//
+
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 
-import * as actions from '../redux/actions';
+// import * as actions from '../redux/actions';
 
-import Gallery from './Gallery';
+// import 'font-awesome/css/font-awesome.min.css';
+import Player from '../containers/Player';
+import Thumbnail from '../containers/Thumbnail';
+import Sidebar from '../containers/Sidebar';
+import Add from './Add';
 
 import './App.scss';
 
-const data = [
-	{
-		id: 0,
-		url: 'https://www.johnvincent.io/internet-resources/resources/images/logos/react.ico',
-		description: 'React'
-	},
-	{
-		id: 1,
-		url: 'https://www.johnvincent.io/internet-resources/resources/images/logos/babel.ico',
-		description: 'Babel'
-	},
-	{
-		id: 2,
-		url: 'https://www.johnvincent.io/internet-resources/resources/images/logos/webpack.ico',
-		description: 'Webpack'
-	}
-];
-// const message = require('./message');
-// document.write(message.sayHello());
+// const { ipcRenderer } = window.require('electron');
+const { ipcRenderer } = window;
+
+console.log('window ', window);
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log('>>> App; constructor');
-		console.log(props);
-		console.log('<<< App; constructor');
+
+		this.state = {
+			files: [],
+			file: {},
+			indexPlayed: 0,
+			displaySidebar: null
+		};
+
+		this._showSidebar = this._showSidebar.bind(this);
+		this._hideSidebar = this._hideSidebar.bind(this);
+		this._changeSong = this._changeSong.bind(this);
+		this._prevSong = this._prevSong.bind(this);
+		this._nextSong = this._nextSong.bind(this);
+		this._changeIndexWhenEnded = this._changeIndexWhenEnded.bind(this);
+	}
+
+	_showSidebar() {
+		this.setState({ displaySidebar: true });
+	}
+
+	_hideSidebar() {
+		this.setState({ displaySidebar: false });
+	}
+
+	_openFile() {
+		ipcRenderer.send('open-file');
+	}
+
+	_openFolder() {
+		ipcRenderer.send('open-folder');
+	}
+
+	_prevSong() {
+		const { indexPlayed, files } = this.state;
+
+		if (indexPlayed <= 0) return;
+
+		this.setState({
+			file: files[indexPlayed - 1],
+			indexPlayed: indexPlayed - 1
+		});
+	}
+
+	_nextSong() {
+		const { indexPlayed, files } = this.state;
+
+		if (indexPlayed >= files.length - 1) return;
+
+		this.setState({
+			file: files[indexPlayed + 1],
+			indexPlayed: indexPlayed + 1
+		});
+	}
+
+	_changeSong(index) {
+		this.setState({
+			indexPlayed: index,
+			file: this.state.files[index]
+		});
+	}
+
+	_changeIndexWhenEnded() {
+		const { indexPlayed } = this.state;
+
+		this.setState({
+			indexPlayed: indexPlayed + 1,
+			file: this.state.files[indexPlayed + 1]
+		});
 	}
 
 	componentDidMount() {
-		console.log('>>> App; componentDidMount');
-		this.props.actions.getUserData();
-		console.log('<<< App; componentDidMount');
+		console.log('App::componentDidMount; this.state ', this.state);
+		let files = [...this.state.files];
+
+		ipcRenderer.on('opened-file', (event, arg) => {
+			console.log('App::componentDidMount::opened-file');
+			const checkIfNotAvailable = files.every(item => item.title !== arg.file.title);
+
+			if (checkIfNotAvailable) {
+				files.push(arg.file);
+
+				this.setState({ files }, () => {
+					this.setState({
+						file: files[files.length - 1],
+						indexPlayed: files.length - 1
+					});
+				});
+			} else {
+				const songIndex = files.findIndex(item => item.title === arg.file.title);
+
+				this.setState({
+					file: files[songIndex],
+					indexPlayed: songIndex
+				});
+			}
+		});
+
+		ipcRenderer.on('opened-folder', (event, arg) => {
+			console.log('App::componentDidMount::opened-folder');
+			files = arg.list;
+
+			this.setState({ files, indexPlayed: -1 }, () => {
+				this.setState({
+					file: files[0],
+					indexPlayed: 0
+				});
+			});
+		});
 	}
 
 	render() {
 		return (
-			<div className="ui container">
-				<div className="outer">App 21...</div>
-				<Gallery images={data} />
+			<div className="App">
+				<h1>Anything</h1>
+				<Sidebar
+					addFolder={this._openFolder}
+					addFile={this._openFile}
+					indexPlayed={this.state.indexPlayed}
+					files={this.state.files}
+					changeSong={this._changeSong}
+					displaySidebar={this.state.displaySidebar}
+					_hideSidebar={this._hideSidebar}
+				/>
+				<Thumbnail file={this.state.file} _showSidebar={this._showSidebar} />
+				<Player
+					file={this.state.file}
+					indexPlayed={this.state.indexPlayed}
+					files={this.state.files}
+					_changeIndexWhenEnded={this._changeIndexWhenEnded}
+					_nextSong={this._nextSong}
+					_prevSong={this._prevSong}
+				/>
 			</div>
 		);
 	}
 }
 
-App.propTypes = {
-	actions: PropTypes.shape({
-		getUserData: PropTypes.func.isRequired
-	}).isRequired
-};
+export default App;
 
-const mapStateToProps = state => ({
-	data: state.dataReducer.data
-});
+// App.propTypes = {
+// 	actions: PropTypes.shape({
+// 		getUserData: PropTypes.func.isRequired
+// 	}).isRequired
+// };
 
-const mapDispatchToProps = dispatch => ({
-	actions: bindActionCreators(actions, dispatch)
-});
+// const mapStateToProps = state => ({
+// 	data: state.dataReducer.data
+// });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(App);
+// const mapDispatchToProps = dispatch => ({
+// 	actions: bindActionCreators(actions, dispatch)
+// });
+
+// export default connect(
+// 	mapStateToProps,
+// 	mapDispatchToProps
+// )(App);

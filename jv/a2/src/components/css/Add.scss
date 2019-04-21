@@ -1,0 +1,38 @@
+#add-button {
+    width:  40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    position: absolute;
+    margin-top: -20px;
+    top: 50%;
+    left: 10px;
+    background-color: #448AFF;
+    box-shadow: 0px 1px 1px black;
+    outline: none;
+}
+
+#add-button:hover {
+    background-color: #2962FF;
+    cursor: pointer;
+}
+
+#add-button:active {
+    background-color: #0D47A1;
+}
+
+@keyframes sizing {
+    0% {width: 40px; height: 40px;}
+    100% {width: 70px; height: 70px;}
+}
+
+@media only screen and (max-height: 500px) {
+    #add-button {
+        width:  20px;
+        height: 20px;
+        margin-top: -10px;
+    }   
+}

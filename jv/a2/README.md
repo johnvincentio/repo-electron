@@ -37,3 +37,7 @@ require('electron-reload')(\_\_dirname);
 
 npm i electron electron-reload electron-window-state --save
 npm i devtron --save-dev
+
+## Also needed
+
+npm i jsmediatags btoa --save

@@ -1,0 +1,41 @@
+.Sidebar .header {
+    height: 10%;
+    background-color: #2196F3;
+    position: relative;
+}
+
+.Sidebar .header #close-sidebar {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    font-size: 15px;
+    margin-top: -10px;
+    color: white;
+    font-weight: bold;
+}
+
+.Sidebar .header #close-sidebar:hover {
+    color: rgb(30, 50, 66);
+    cursor: pointer;
+}
+
+.Sidebar .content {
+    overflow-y: auto;
+    min-height: 90%;
+    max-height: 90%;
+    border-right: 1px solid #EEEEEE;
+}
+
+.Sidebar .content #icon-files{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    font-size: 50px;
+    color: #CFD8DC;
+}
+
+.Sidebar .header .add-folder {
+    margin-left: 14%;
+}
