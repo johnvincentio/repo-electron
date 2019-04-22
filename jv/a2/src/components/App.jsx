@@ -1,5 +1,6 @@
 //
 
+// import { ipcRenderer } from 'electron';
 import React from 'react';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
@@ -15,10 +16,12 @@ import Add from './Add';
 
 import './App.scss';
 
-// const { ipcRenderer } = window.require('electron');
-const { ipcRenderer } = window;
+const electron = window.require('electron');
 
-console.log('window ', window);
+// const { ipcRenderer } = window.require('electron');
+const { ipcRenderer } = window.electron;
+// const { ipcMain } = window.electron;
+// console.log('window.electron ', window.electron);
 
 class App extends React.Component {
 	constructor(props) {
@@ -48,11 +51,14 @@ class App extends React.Component {
 	}
 
 	_openFile() {
+		console.log('App::_openFile');
 		ipcRenderer.send('open-file');
 	}
 
 	_openFolder() {
+		console.log('>>> App::openFolder');
 		ipcRenderer.send('open-folder');
+		console.log('<<< App::openFolder');
 	}
 
 	_prevSong() {
@@ -97,6 +103,8 @@ class App extends React.Component {
 		console.log('App::componentDidMount; this.state ', this.state);
 		let files = [...this.state.files];
 
+		console.log('App::componentDidMount; ipcRenderer ', ipcRenderer);
+
 		ipcRenderer.on('opened-file', (event, arg) => {
 			console.log('App::componentDidMount::opened-file');
 			const checkIfNotAvailable = files.every(item => item.title !== arg.file.title);
@@ -121,7 +129,7 @@ class App extends React.Component {
 		});
 
 		ipcRenderer.on('opened-folder', (event, arg) => {
-			console.log('App::componentDidMount::opened-folder');
+			console.log('App::componentDidMount::opened-folder; arg ', arg);
 			files = arg.list;
 
 			this.setState({ files, indexPlayed: -1 }, () => {
@@ -146,7 +154,7 @@ class App extends React.Component {
 					displaySidebar={this.state.displaySidebar}
 					_hideSidebar={this._hideSidebar}
 				/>
-				<Thumbnail file={this.state.file} _showSidebar={this._showSidebar} />
+				{/* <Thumbnail file={this.state.file} _showSidebar={this._showSidebar} />
 				<Player
 					file={this.state.file}
 					indexPlayed={this.state.indexPlayed}
@@ -154,7 +162,7 @@ class App extends React.Component {
 					_changeIndexWhenEnded={this._changeIndexWhenEnded}
 					_nextSong={this._nextSong}
 					_prevSong={this._prevSong}
-				/>
+				/> */}
 			</div>
 		);
 	}

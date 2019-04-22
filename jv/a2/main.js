@@ -33,8 +33,8 @@ function createWindow() {
 		minHeight: 200,
 		webPreferences: {
 			webSecurity: false,
-			nodeIntegration: false,
-			preload: `${__dirname  }/preload.js`
+			nodeIntegration: true,
+			preload: `${__dirname}/preload.js`
 		}
 	});
 	winState.manage(mainWindow);
@@ -43,9 +43,9 @@ function createWindow() {
 
 	mainWindow.webContents.openDevTools();
 
-	mainWindow.on('focus', () => {
-		console.log('Main window focused');
-	});
+	// mainWindow.on('focus', () => {
+	// 	console.log('Main window focused');
+	// });
 
 	mainWindow.on('closed', () => {
 		console.log('on mainWindow closed');
@@ -126,8 +126,11 @@ ipcMain.on('open-folder', (event, arg) => {
 
 	if (folder == null) return;
 
+	console.log('folder ', folder);
 	const mp3List = searchMP3(folder);
 	const modifiedList = [];
+
+	console.log('mp3List ', mp3List);
 
 	mp3List.forEach((item, index) => {
 		const dataFormat = {

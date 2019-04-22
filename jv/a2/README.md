@@ -1,4 +1,11 @@
-    "name": "electron-quick-start",
+# TOP
+
+     ‎⁨Macintosh HD⁩ ▸ ⁨Users⁩ ▸ ⁨jv⁩ ▸ ⁨tmp⁩ ▸ ⁨music⁩ ▸ ⁨Various Artists⁩
+
+     "/Users/jv/tmp/Various Artists⁩"
+
+
+      "name": "electron-quick-start",
     "version": "1.0.0",
     "description": "A minimal Electron application",
     "main": "main.js",

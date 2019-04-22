@@ -39,7 +39,7 @@ class Sidebar extends React.Component {
 				id={this.props.displaySidebar ? 'displayed' : this.props.displaySidebar === null ? '' : 'hidden'}
 			>
 				<div className="header">
-					<Add addFunc={this.props.addFile} />
+					{/* <Add addFunc={this.props.addFile} /> */}
 					<Add buttonClass="add-folder" addFunc={this.props.addFolder} />
 					<div id="close-sidebar" onClick={this.props._hideSidebar}>
 						<i className="fas fa-times" />
