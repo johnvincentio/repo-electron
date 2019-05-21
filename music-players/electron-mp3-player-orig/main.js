@@ -10,7 +10,7 @@ function createWindow() {
 
     win.loadURL('http://localhost:7777/');
 
-    BrowserWindow.addDevToolsExtension('C:\\Users\\WIN 10\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\3.2.1_0');
+    // BrowserWindow.addDevToolsExtension('C:\\Users\\WIN 10\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\3.2.1_0');
     win.setMenuBarVisibility(false);
     win.webContents.openDevTools();
 }

@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build:client": "del production && webpack",
+    "build:client": "rm -rf production && webpack",
     "dev:server": "webpack-dev-server --config webpack.dev.config.js"
   },
   "keywords": [
