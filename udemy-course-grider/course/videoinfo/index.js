@@ -28,12 +28,3 @@ ipcMain.on('video:submit', (event, path) => {
     );
   });
 });
-
-// ipcMain.on('video:submit', (event, path) => {
-// 	console.log('ipcMain.on(video:submit)');
-// 	// ffmpeg.ffprobe(path, (err, metadata) => {
-// 	// 	console.log('Video duration is: ', metadata.format.duration);
-// 	// });
-// });
-
-
