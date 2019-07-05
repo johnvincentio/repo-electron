@@ -1,0 +1,22 @@
+{
+ "name": "a1",
+ "version": "1.0.0",
+ "description": "change-this",
+ "repository": {
+  "type": "git",
+  "url": "git://git@github.com:johnvincentio/change-repo.git"
+ },
+ "main": "index.js",
+ "scripts": {
+	"electron-help": "electron --help",
+	"electron": "electron app",
+  "audit": "npm audit",
+  "USELESS": "nothing"
+ },
+ "keywords": [],
+ "author": "",
+ "license": "ISC",
+ "devDependencies": {
+  "electron": "^5.0.6"
+ }
+}
