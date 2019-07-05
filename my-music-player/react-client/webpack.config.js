@@ -1,7 +1,8 @@
 //
 
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
 
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const SWPreCacheWebpackPlugin = require('sw-precache-webpack-plugin');
@@ -143,7 +144,11 @@ config.module = {
 			test: /\.(sass|scss)$/,
 			include: SCSS_FOLDER,
 			exclude: [SCSS_SRC_FOLDER, /node_modules/],
-			use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader', 'sass-loader']
+			use: [
+				{ loader: MiniCssExtractPlugin.loader },
+				'css-loader',
+				'sass-loader'
+			]
 		},
 		{
 			test: /\.(sass|scss)$/,
@@ -193,7 +198,13 @@ const plugins = [
 	// new CleanWebpackPlugin([DIST_FOLDER]),
 
 	// list all React app required env variables
-	new webpack.EnvironmentPlugin(['HOME_URL', 'SERVER_URL', 'NODE_ENV', 'GOOGLE_APP_ID', 'NOT_APP_15_SEC_RULE']),
+	new webpack.EnvironmentPlugin([
+		'HOME_URL',
+		'SERVER_URL',
+		'NODE_ENV',
+		'GOOGLE_APP_ID',
+		'NOT_APP_15_SEC_RULE'
+	]),
 
 	HTMLPlugin,
 	// new InlineSourcePlugin(),
@@ -222,6 +233,17 @@ const plugins = [
 
 	// new CopyWebpackPlugin([{ from: 'scss/fonts', to: 'assets/fonts' }], { debug: 'info' })
 ];
+
+const nodeModules = {};
+fs.readdirSync('node_modules')
+	.filter(function(x) {
+		return ['.bin'].indexOf(x) === -1;
+	})
+	.forEach(function(mod) {
+		nodeModules[mod] = `commonjs ${mod}`;
+	});
+
+config.externals = nodeModules;
 
 if (PRODUCTION_MODE) {
 	config.plugins = [

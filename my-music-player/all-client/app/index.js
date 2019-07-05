@@ -53,7 +53,7 @@ const setMusicFolder = () => {
 	});
 	console.log('folder ', folder);
 	if (folder == null) return;
-	// mainWindow.webContents.send('folders:complete');
+	mainWindow.webContents.send('folders:complete');
 };
 
 ipcMain.on('todo:add', (event, todo) => {

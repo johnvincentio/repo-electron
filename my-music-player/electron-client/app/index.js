@@ -3,7 +3,7 @@
 const electron = require('electron');
 const path = require('path');
 
-const { app, BrowserWindow, ipcMain, Menu } = electron;
+const { app, BrowserWindow, dialog, ipcMain, Menu } = electron;
 
 let mainWindow;
 let addWindow;
@@ -13,6 +13,8 @@ console.log(`dirname ${__dirname}`);
 const srcPath = path.join(__dirname, '..', '/src');
 console.log('srcPath ', srcPath);
 
+const reactClient = path.join(__dirname, '..', '/src');
+
 app.on('ready', () => {
 	mainWindow = new BrowserWindow({
 		width: 800,
@@ -21,7 +23,8 @@ app.on('ready', () => {
 			nodeIntegration: true
 		}
 	});
-	mainWindow.loadURL(`file://${__dirname}/main.html`);
+	// mainWindow.loadURL(`file://${__dirname}/main.html`);
+	mainWindow.loadURL(`http://localhost:8020/`);
 	mainWindow.webContents.openDevTools();
 	mainWindow.on('closed', () => app.quit());
 
@@ -42,6 +45,17 @@ const createAddWindow = () => {
 	addWindow.on('closed', () => (addWindow = null));
 };
 
+const setMusicFolder = () => {
+	console.log('setMusicFolder');
+	const folder = dialog.showOpenDialog({
+		title: 'Select Music Folder',
+		properties: ['openDirectory']
+	});
+	console.log('folder ', folder);
+	if (folder == null) return;
+	// mainWindow.webContents.send('folders:complete');
+};
+
 ipcMain.on('todo:add', (event, todo) => {
 	mainWindow.webContents.send('todo:add', todo);
 	addWindow.close();
@@ -51,6 +65,12 @@ const menuTemplate = [
 	{
 		label: 'File',
 		submenu: [
+			{
+				label: 'Set Music Folder',
+				click() {
+					setMusicFolder();
+				}
+			},
 			{
 				label: 'New Todo',
 				click() {
@@ -78,7 +98,7 @@ if (process.platform === 'darwin') {
 	menuTemplate.unshift({ label: '' });
 }
 
-if (process.env.NODE_ENV !== 'production')
+if (process.env.NODE_ENV !== 'production') {
 	menuTemplate.push({
 		label: 'Developer',
 		submenu: [
@@ -92,3 +112,23 @@ if (process.env.NODE_ENV !== 'production')
 			}
 		]
 	});
+}
+
+/*
+	ipcMain.on('videos:added', (event, videos) => {
+  const promises = _.map(videos, video => {
+    return new Promise((resolve, reject) => {
+      ffmpeg.ffprobe(video.path, (err, metadata) => {
+        video.duration = metadata.format.duration;
+        video.format = 'avi';
+        resolve(video);
+      });
+    });
+  });
+
+  Promise.all(promises)
+    .then((results) => {
+      mainWindow.webContents.send('metadata:complete', results);
+    });
+});
+*/

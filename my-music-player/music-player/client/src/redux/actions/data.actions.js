@@ -1,7 +1,5 @@
 //
 
-import { ipcRenderer } from 'electron';
-
 import jsondata from '../../apis/jsonPlaceHolder';
 
 import { SERVER_FOLDERS_DATA, SERVER_META_DATA } from '../../config';
@@ -10,16 +8,7 @@ import { FETCH_MUSIC_DATA, FETCH_MUSIC_METADATA } from '../constants';
 
 /* eslint-disable import/prefer-default-export */
 
-export const fetchMusicData = () => dispatch => {
-	console.log('data.actions.fetchMusicData');
-
-	ipcRenderer.on('folders:complete', (event, videosWithData) => {
-		console.log('data.actions.fetchMusicData::folders:complete');
-		dispatch({ type: FETCH_MUSIC_DATA, payload: videosWithData });
-	});
-};
-
-export const fetchMusicDataOld = () => async dispatch => {
+export const fetchMusicData = () => async dispatch => {
 	// console.log('data.actions.fetchMusicData');
 	const response = await jsondata.get(SERVER_FOLDERS_DATA, {
 		crossDomain: true
