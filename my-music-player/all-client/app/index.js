@@ -3,7 +3,15 @@
 const electron = require('electron');
 const path = require('path');
 
+console.log('module.paths ', module.paths);
+
+const jsmediatags = require('jsmediatags');
+
+const DataService = require('./data/data.service.js');
+
 const { app, BrowserWindow, dialog, ipcMain, Menu } = electron;
+
+const dataService = new DataService();
 
 let mainWindow;
 let addWindow;
@@ -13,7 +21,7 @@ console.log(`dirname ${__dirname}`);
 const srcPath = path.join(__dirname, '..', '/src');
 console.log('srcPath ', srcPath);
 
-const reactClient = path.join(__dirname, '..', '/src');
+// const reactClient = path.join(__dirname, '..', '/src');
 
 app.on('ready', () => {
 	mainWindow = new BrowserWindow({
@@ -53,8 +61,15 @@ const setMusicFolder = () => {
 	});
 	console.log('folder ', folder);
 	if (folder == null) return;
-	mainWindow.webContents.send('folders:complete');
+	const folders = dataService.createFoldersData(folder[0]);
+	mainWindow.webContents.send('folders:complete', { folders });
 };
+
+ipcMain.on('metadata:request', (event, folderId) => {
+	console.log('index.js; metadata:request; folderId ', folderId);
+	const folders = dataService.getMusicFolderMetaData(mainWindow, folderId);
+	// mainWindow.webContents.send('metadata:complete', { folders });
+});
 
 ipcMain.on('todo:add', (event, todo) => {
 	mainWindow.webContents.send('todo:add', todo);

@@ -73,11 +73,10 @@ class App extends React.Component {
 		// console.log('App::timeUpdate; NOT_APP_15_SEC_RULE ', NOT_APP_15_SEC_RULE, ' currentTime ', currentTime);
 		if (NOT_APP_15_SEC_RULE) {
 			this.setCurrentTime(currentTime);
-		}
-		else if (Math.floor(currentTime) < 15) {		// production
+		} else if (Math.floor(currentTime) < 15) {
+			// production
 			this.setCurrentTime(currentTime);
-		}
-		else {
+		} else {
 			this.stopAudio();
 			this.audioEnded();
 		}
@@ -173,7 +172,7 @@ class App extends React.Component {
 	};
 
 	render() {
-		// console.log('App::render(); props, state ', this.props, this.state);
+		console.log('App::render(); props, state ', this.props, this.state);
 		// console.log('Developer mode ', DEVELOPMENT_SYSTEM);
 		const { folders } = this.props;
 		const { folderId, trackId, playing } = this.state;
@@ -263,7 +262,7 @@ App.defaultProps = {
 };
 
 function mapStateToProps(state) {
-	// console.log('App::mapStateToProps(), state ', state);
+	console.log('App::mapStateToProps(), state ', state);
 	return {
 		folders: state.data.folders
 	};

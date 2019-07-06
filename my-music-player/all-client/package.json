@@ -101,6 +101,7 @@
     "classnames": "^2.2.6",
     "dotenv": "^8.0.0",
     "electron": "^5.0.6",
+    "jsmediatags": "^3.8.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
